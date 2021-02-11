@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shape Grammar</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <div class="split-left-right">
+        <div class="viewer">
+          <canvas class="webgl"></canvas>
+        </div>
+        <div class="split-top-bottom">
+          <textarea name="" id="code" cols="30" rows="10">box 2 3 4</textarea>
+          <pre id="error"></pre>
+        </div>
+      </div>
+    </div>
+    <script src="./third_party/three.min.js"></script>
+    <script src="./third_party/OrbitControls.js"></script>
+    <script src="./js/main.js"></script>
+  </body>
+</html>

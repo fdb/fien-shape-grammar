@@ -1,0 +1,57 @@
+:root {
+  --background-color: #f8ecec;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow: hidden;
+  background-color: var(--background-color);
+  color: rgb(122, 105, 105);
+  font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+}
+.app {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+textarea {
+  font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  color: rgb(122, 105, 105);
+  background-color: var(--background-color);
+  border: none;
+  outline: none;
+  padding: 10px;
+  resize: none;
+}
+
+pre {
+  padding: 10px;
+  color: red;
+  background-color: var(--background-color);
+}
+
+.split-left-right {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  grid-gap: 2px;
+  width: 100%;
+  height: 100%;
+  background: #666;
+}
+
+.split-top-bottom {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 2px;
+  width: 100%;
+  height: 100%;
+  background: #666;
+}
