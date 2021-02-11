@@ -95,8 +95,8 @@ function buildGeometry() {
 
   const lines = instructions.trim().split("\n");
 
-  const transform = new THREE.Matrix4();
-  const tmp = new THREE.Matrix4();
+  let tx = (ty = tz = 0);
+
   // let geometry;
   for (let line = 0; line < lines.length; line++) {
     const [command, ...args] = lines[line].trim().split(" ");
@@ -111,12 +111,7 @@ function buildGeometry() {
         for (let y = 0; y < height; y++) {
           for (let z = 0; z < depth; z++) {
             const mesh = new THREE.Mesh(boxGeometry, boxMaterial);
-            mesh.matrixAutoUpdate = false;
-            // mesh.position.set(x, y, z);
-            mesh.matrix.multiply(transform);
-            tmp.makeTranslation(x, y, z);
-            mesh.matrix.multiply(tmp);
-
+            mesh.position.set(x + tx, y + ty, z + tz);
             geometryGroup.add(mesh);
           }
         }
@@ -127,13 +122,11 @@ function buildGeometry() {
           `Line ${line}: translate needs three arguments, e.g. translate 2 4 5`
         );
       }
-      const tx = args[0];
-      const ty = args[1];
-      const tz = args[2];
-      tmp.makeTranslation(tx, ty, tz);
-      transform.multiply(tmp);
+      tx += parseInt(args[0]);
+      ty += parseInt(args[1]);
+      tz += parseInt(args[2]);
     } else if (command === "reset") {
-      transform.identity();
+      tx = ty = tz = 0;
     } else if (command.trim() === "" || command.trim()[0] === "#") {
       // Empty line or comment
     } else {
