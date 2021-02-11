@@ -82,8 +82,6 @@ window.addEventListener("resize", () => {
   // Update renderer
   renderer.setSize(globalSize.width, globalSize.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-  render();
 });
 
 const camera = new THREE.PerspectiveCamera(
@@ -131,9 +129,14 @@ function buildVolume() {
   let tz = Math.round(MAX_DEPTH / 2);
 
   // let geometry;
-  for (let line = 0; line < lines.length; line++) {
-    const [command, ...args] = lines[line].trim().split(/\s+/);
-    if (command === "box") {
+  for (let line = 1; line <= lines.length; line++) {
+    const [command, ...args] = lines[line - 1].trim().split(/\s+/);
+    const firstLetter = command[0];
+    if (firstLetter && firstLetter.toUpperCase() === firstLetter) {
+      // This is a definition
+    } else if (command === "}") {
+      // Close the definition
+    } else if (command === "box") {
       if (args.length !== 3) {
         setError(`Line ${line}: box needs three arguments, e.g. box 2 4 5`);
       }
