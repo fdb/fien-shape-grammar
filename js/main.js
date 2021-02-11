@@ -1,11 +1,11 @@
 let instructions = `box 2 3 4
 
 translate 5 0 0
-box 2 3 4
+box 2 10 4
 
 reset
 translate -5 0 0
-box 2 3 4
+box 2 7 4
 `;
 document.getElementById("code").textContent = instructions;
 
@@ -53,8 +53,8 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   100
 );
-camera.position.y = 10;
-camera.position.z = 10;
+camera.position.y = 5;
+camera.position.z = 15;
 scene.add(camera);
 
 const controls = new THREE.OrbitControls(camera, canvas);
