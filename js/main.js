@@ -131,12 +131,7 @@ function buildVolume() {
   // let geometry;
   for (let line = 1; line <= lines.length; line++) {
     const [command, ...args] = lines[line - 1].trim().split(/\s+/);
-    const firstLetter = command[0];
-    if (firstLetter && firstLetter.toUpperCase() === firstLetter) {
-      // This is a definition
-    } else if (command === "}") {
-      // Close the definition
-    } else if (command === "box") {
+    if (command === "box") {
       if (args.length !== 3) {
         setError(`Line ${line}: box needs three arguments, e.g. box 2 4 5`);
       }
