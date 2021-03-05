@@ -1,21 +1,9 @@
 let instructions = `reset
-translate -8 0 -8
-plane 16 16
+lsys FF+FFFFF
+translate 10 0 0
+lsys FF+FFF+FFFFF
 
-reset
-translate -4 2 -4
-plane 8 8
-
-reset
-translate -2 4 -2
-plane 4 4
-
-reset
-translate -1 6 -1
-plane 2 2
-
-extrude 2
-`;
+extrude 5`;
 
 document.getElementById("code").textContent = instructions;
 
@@ -185,10 +173,38 @@ function buildVolume() {
       tx = Math.round(MAX_WIDTH / 2);
       ty = Math.round(MAX_HEIGHT / 2);
       tz = Math.round(MAX_DEPTH / 2);
+    } else if (command === "lsys") {
+      rule = args[0];
+      buildLSystem(rule, tx, ty, tz);
     } else if (command.trim() === "" || command.trim()[0] === "#") {
       // Empty line or comment
     } else {
       setError(`Line ${line}: unknown command "${command}".`);
+    }
+  }
+}
+
+function buildLSystem(rule, startTx, startTy, startTz) {
+  let tx = startTx;
+  let ty = startTy;
+  let tz = startTz;
+
+  let angle = 0;
+
+  for (let letter of rule) {
+    if (letter === "F") {
+      vset(tx, ty, tz);
+      tx += Math.round(Math.cos(angle));
+      ty += 0;
+      tz += Math.round(Math.sin(angle));
+    } else if (letter === "f") {
+      tx += Math.round(Math.cos(angle));
+      ty += 0;
+      tz += Math.round(Math.sin(angle));
+    } else if (letter === "+") {
+      angle += Math.PI / 2;
+    } else if (letter === "-") {
+      angle -= Math.PI / 2;
     }
   }
 }
@@ -201,6 +217,7 @@ function buildGeometry() {
   }
   geometryGroup.position.set(-MAX_WIDTH / 2, -MAX_HEIGHT / 2, -MAX_DEPTH / 2);
 
+  // buildLSystem();
   buildVolume();
 
   let boxCount = 0;
